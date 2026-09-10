@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="EntryMap — check your eligibility for top universities worldwide, track documents and build your application roadmap.">
+<meta name="theme-color" content="#4F5FE8">
+<title>EntryMap — University Admissions Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%234F5FE8'/><path d='M9 22V10l7 6 7-6v12' stroke='white' stroke-width='2.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ ICON SPRITE ============ -->
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <g id="s" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></g>
+  </defs>
+
+  <symbol id="i-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.2 12 3l9 7.2V20a1.8 1.8 0 0 1-1.8 1.8H4.8A1.8 1.8 0 0 1 3 20z"/><path d="M9.2 21.8v-7h5.6v7"/></g></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-1.6A4.4 4.4 0 0 0 15.6 15H8.4A4.4 4.4 0 0 0 4 19.4V21"/><circle cx="12" cy="7.5" r="4"/></g></symbol>
+  <symbol id="i-bank" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.6 3 7.2h18z"/><path d="M5.5 11v7M9.5 11v7M14.5 11v7M18.5 11v7"/><path d="M3 21.4h18"/></g></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21.2 12 16l-7 5.2V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></g></symbol>
+  <symbol id="i-compare" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="7.5" r="3.2"/><path d="M2.8 20.2v-1.4a4 4 0 0 1 4-4h3.4a4 4 0 0 1 4 4v1.4"/><path d="M16.5 4.6a3.2 3.2 0 0 1 0 6.2"/><path d="M17.8 14.9a4 4 0 0 1 3.4 3.9v1.4"/></g></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2.8H7a2 2 0 0 0-2 2v14.4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7.8z"/><path d="M14 2.8v5h5"/><path d="M8.8 13h6.4M8.8 16.8h4.4"/></g></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m21 8-9-5-9 5 9 5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></g></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.6A2 2 0 0 1 6 2.6h11.4a1.6 1.6 0 0 1 1.6 1.6v15.6a1.6 1.6 0 0 1-1.6 1.6H6a2 2 0 0 1-2-2z"/><path d="M8 2.6v18.8"/><path d="M11.6 8h4M11.6 12h4"/></g></symbol>
+
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7.4"/><path d="m21 21-4.6-4.6"/></g></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.2 8.6a5.8 5.8 0 0 1 11.6 0c0 6.4 2.6 8.2 2.6 8.2H3.6s2.6-1.8 2.6-8.2"/><path d="M10.3 20.4a2 2 0 0 0 3.4 0"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.4A8.6 8.6 0 0 1 9.6 3.5a8.6 8.6 0 1 0 10.9 10.9"/></g></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2 12h2.4M19.6 12H22M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></g></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></g></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12h15"/><path d="m13 5.5 6.5 6.5-6.5 6.5"/></g></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 21H5.6A1.6 1.6 0 0 1 4 19.4V4.6A1.6 1.6 0 0 1 5.6 3h3.9"/><path d="m16 16.5 4.5-4.5L16 7.5"/><path d="M20.5 12H9.5"/></g></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6.5 9.3 17.2 4 11.9"/></g></symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="m8 12.2 2.8 2.8L16 9.8"/></g></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7.6v5M12 16.2h.01"/></g></symbol>
+  <symbol id="i-x-circle" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="m14.8 9.2-5.6 5.6M9.2 9.2l5.6 5.6"/></g></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></g></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></g></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 6.8V12l3.4 2"/></g></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 9.4 12 4.6 2 9.4l10 4.8z"/><path d="M6 11.6v4.6c3.4 3 8.6 3 12 0v-4.6"/></g></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></g></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h16M9.5 6.5V4.8a1.4 1.4 0 0 1 1.4-1.4h2.2a1.4 1.4 0 0 1 1.4 1.4v1.7"/><path d="M6.4 6.5 7.2 20a1.6 1.6 0 0 0 1.6 1.5h6.4a1.6 1.6 0 0 0 1.6-1.5l.8-13.5"/></g></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 4.5H19.5V10.5"/><path d="M19.5 4.5 11 13"/><path d="M18 14.5v4.4a1.6 1.6 0 0 1-1.6 1.6H5.1A1.6 1.6 0 0 1 3.5 18.9V7.6A1.6 1.6 0 0 1 5.1 6h4.4"/></g></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2 14.1 9l5.8 2.1-5.8 2.1L12 19l-2.1-5.8L4.1 11.1 9.9 9z"/></g></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/></g></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.2 9.5h17.6M3.2 14.5h17.6"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18"/></g></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 7.5A2 2 0 0 1 5.5 5.5h11a2 2 0 0 1 2 2"/><path d="M3.5 7.5v10a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z"/><path d="M16.8 13.9h.01"/></g></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4"/><path d="M4 20h16"/><path d="M8 16v-4M13 16V7M18 16v-6"/></g></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10.2 8.6 15.4 12l-5.2 3.4z"/></g></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.6 6.4 8.4 6 8.4-6"/></g></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v3.4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V15"/><path d="m7.5 8.5 4.5-4.5 4.5 4.5"/><path d="M12 4v12"/></g></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 7.5 19.4l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 3 15H3a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 4.6 8.5l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 10 4.6V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 2.5 1.5l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0 1.1 2.7H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></g></symbol>
+</svg>
+
+<!-- ============ UNIVERSITY LOGO SPRITE ============ -->
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="u-mit" viewBox="0 0 48 48">
+    <rect x="4"  y="14" width="4.6" height="21" fill="#A31F34"/>
+    <rect x="10.4" y="14" width="4.6" height="21" fill="#A31F34"/>
+    <rect x="16.8" y="20" width="4.6" height="15" fill="#8A8B8C"/>
+    <rect x="23.2" y="14" width="4.6" height="21" fill="#8A8B8C"/>
+    <rect x="29.6" y="9"  width="4.6" height="26" fill="#A31F34"/>
+    <rect x="36"  y="20" width="4.6" height="15" fill="#8A8B8C"/>
+    <rect x="36"  y="9"  width="8"  height="6"  fill="#A31F34"/>
+  </symbol>
+
+  <symbol id="u-stanford" viewBox="0 0 48 48">
+    <rect x="22.4" y="30" width="3.2" height="12" rx="1" fill="#6B4423"/>
+    <path d="M24 4c1.9 2.9 4.4 5 4.4 7.9 0 1.4-.6 2.5-1.6 3.4 2.3 1.2 4.2 3.1 4.2 5.8 0 2-1 3.6-2.5 4.7 2.2 1.1 3.7 3 3.7 5.4 0 3.6-3.5 6.3-8.2 6.3s-8.2-2.7-8.2-6.3c0-2.4 1.5-4.3 3.7-5.4-1.5-1.1-2.5-2.7-2.5-4.7 0-2.7 1.9-4.6 4.2-5.8-1-.9-1.6-2-1.6-3.4C19.6 9 22.1 6.9 24 4z" fill="#8C1515"/>
+  </symbol>
+
+  <symbol id="u-oxford" viewBox="0 0 48 48">
+    <path d="M24 3.5 7 8.6v14.6c0 10.4 7.3 17.9 17 21.3 9.7-3.4 17-10.9 17-21.3V8.6z" fill="#002147"/>
+    <path d="M24 17.5c-2-1.4-4.4-2.1-7-2.1v12.2c2.6 0 5 .7 7 2.1 2-1.4 4.4-2.1 7-2.1V15.4c-2.6 0-5 .7-7 2.1z" fill="#fff"/>
+    <path d="M24 17.5v12.2" stroke="#002147" stroke-width="1.4"/>
+  </symbol>
+
+  <symbol id="u-harvard" viewBox="0 0 48 48">
+    <path d="M24 3.5 7 8.6v14.6c0 10.4 7.3 17.9 17 21.3 9.7-3.4 17-10.9 17-21.3V8.6z" fill="#A51C30"/>
+    <rect x="12.5" y="13" width="9" height="8" rx="1.2" fill="#fff"/>
+    <rect x="26.5" y="13" width="9" height="8" rx="1.2" fill="#fff"/>
+    <rect x="19.5" y="24.5" width="9" height="8" rx="1.2" fill="#fff"/>
+  </symbol>
+
+  <symbol id="u-hku" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="20" fill="#046A38"/>
+    <circle cx="24" cy="24" r="16" fill="none" stroke="#F0F4F2" stroke-width="1.4"/>
+    <path d="M24 11.5 33 14.7v8.1c0 5.9-3.8 10.2-9 12.2-5.2-2-9-6.3-9-12.2v-8.1z" fill="#C8A24A"/>
+    <path d="M24 17.5v11M19.5 22.5h9" stroke="#046A38" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="u-nyuad" viewBox="0 0 48 48">
+    <rect x="3" y="9" width="42" height="30" rx="6" fill="#57068C"/>
+    <text x="24" y="26" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="800" fill="#fff" letter-spacing=".5">NYU</text>
+    <text x="24" y="34.5" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="6.4" font-weight="600" fill="#D8BBEE" letter-spacing=".6">ABU DHABI</text>
+  </symbol>
+
+  <symbol id="u-nus" viewBox="0 0 48 48">
+    <rect x="4" y="10" width="40" height="28" rx="5" fill="#EF7C00"/>
+    <path d="M12 31V17l9 9V17M27 17v9a4.5 4.5 0 0 0 9 0v-9" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="u-toronto" viewBox="0 0 48 48">
+    <path d="M24 3.5 7 8.6v14.6c0 10.4 7.3 17.9 17 21.3 9.7-3.4 17-10.9 17-21.3V8.6z" fill="#25355A"/>
+    <path d="M24 12.5 15 17v9.5c0 4.6 3.7 8 9 10 5.3-2 9-5.4 9-10V17z" fill="#fff"/>
+    <path d="M24 18v10M19.5 22.5h9" stroke="#25355A" stroke-width="2.4" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="u-tudelft" viewBox="0 0 48 48">
+    <rect x="4" y="10" width="40" height="28" rx="5" fill="#00A6D6"/>
+    <path d="M11 18h11M16.5 18v13M26 18h6.5a5 5 0 0 1 0 13H26z" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#" data-nav="dashboard">
+      <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="bmg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#4F63E8"/><stop offset="1" stop-color="#6D5AE6"/>
+          </linearGradient>
+        </defs>
+        <path d="M4 27V8.4c0-1.3 1.6-2 2.5-1L16 17.6l9.5-10.2c.9-1 2.5-.3 2.5 1V27" stroke="url(#bmg)" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand-name">EntryMap</span>
+    </a>
+
+    <nav class="nav" aria-label="Main">
+      <button class="nav-item is-active" data-nav="dashboard"><svg class="ico"><use href="#i-home"/></svg><span>Dashboard</span></button>
+      <button class="nav-item" data-nav="profile"><svg class="ico"><use href="#i-user"/></svg><span>Profile</span></button>
+      <button class="nav-item" data-nav="universities"><svg class="ico"><use href="#i-bank"/></svg><span>Universities</span></button>
+      <button class="nav-item" data-nav="saved"><svg class="ico"><use href="#i-bookmark"/></svg><span>Saved</span></button>
+      <button class="nav-item" data-nav="comparisons"><svg class="ico"><use href="#i-compare"/></svg><span>Comparisons</span></button>
+      <button class="nav-item" data-nav="programs"><svg class="ico"><use href="#i-cap"/></svg><span>Programs</span></button>
+      <button class="nav-item" data-nav="documents"><svg class="ico"><use href="#i-file"/></svg><span>Documents</span></button>
+      <button class="nav-item" data-nav="roadmap"><svg class="ico"><use href="#i-map"/></svg><span>Roadmap</span></button>
+      <button class="nav-item" data-nav="resources"><svg class="ico"><use href="#i-book"/></svg><span>Resources</span></button>
+    </nav>
+
+    <div class="side-spacer"></div>
+
+    <div class="promo">
+      <svg class="promo-art" viewBox="0 0 110 78" fill="none" aria-hidden="true">
+        <rect x="16" y="26" width="70" height="44" rx="7" fill="#fff" stroke="#DDE3FA" stroke-width="1.6"/>
+        <rect x="25" y="46" width="34" height="4" rx="2" fill="#DDE3FA"/>
+        <rect x="25" y="55" width="22" height="4" rx="2" fill="#E9EDFC"/>
+        <path d="M55 8 79 18 55 28 31 18z" fill="#4F63E8"/>
+        <path d="M38 22v8c0 4 8 6.5 17 6.5S72 34 72 30v-8" stroke="#6D5AE6" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <path d="M79 18v11" stroke="#4F63E8" stroke-width="2.6" stroke-linecap="round"/>
+        <circle cx="79" cy="31" r="2.6" fill="#F59E0B"/>
+        <path d="m92 40 12-6-4 11z" fill="#8B5CF6"/>
+        <path d="m92 40 8-2-4 6z" fill="#A78BFA"/>
+        <circle cx="14" cy="14" r="3" fill="#22C55E"/>
+        <path d="M97 12h6M100 9v6" stroke="#F59E0B" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="9" cy="52" r="2" fill="#60A5FA"/>
+      </svg>
+      <p class="promo-title">Not sure where to start?</p>
+      <p class="promo-text">Our guide will help you build the perfect application step by step.</p>
+      <button class="promo-btn" data-nav="resources">View Guide</button>
+    </div>
+
+    <div class="user-block">
+      <div class="avatar" aria-hidden="true">AS</div>
+      <button class="user-meta" id="userToggle" aria-haspopup="true" aria-expanded="false">
+        <span class="user-name">Aigerim S.</span>
+        <span class="user-loc">Kazakhstan <svg class="ico"><use href="#i-chevron-down"/></svg></span>
+      </button>
+      <button class="icon-btn-plain" id="logoutBtn" aria-label="Log out" title="Log out">
+        <svg class="ico"><use href="#i-logout"/></svg>
+      </button>
+      <div class="user-menu" id="userMenu" role="menu">
+        <button data-nav="profile" role="menuitem"><svg class="ico"><use href="#i-user"/></svg>View profile</button>
+        <button data-nav="saved" role="menuitem"><svg class="ico"><use href="#i-bookmark"/></svg>Saved universities</button>
+        <button id="menuSettings" role="menuitem"><svg class="ico"><use href="#i-settings"/></svg>Account settings</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+
+    <header class="topbar">
+      <button class="burger" id="burger" aria-label="Open navigation"><svg class="ico"><use href="#i-menu"/></svg></button>
+
+      <div class="search-wrap">
+        <svg class="ico"><use href="#i-search"/></svg>
+        <input class="search-input" id="globalSearch" type="search" autocomplete="off"
+               placeholder="Search universities or programs..." aria-label="Search universities or programs">
+        <div class="pop pop-search" id="searchPop" role="listbox"></div>
+      </div>
+
+      <div class="topbar-actions">
+        <div style="position:relative">
+          <button class="icon-btn" id="bellBtn" aria-label="Notifications">
+            <svg class="ico"><use href="#i-bell"/></svg>
+            <span class="badge-dot" id="notifCount">3</span>
+          </button>
+          <div class="pop pop-notif" id="notifPop">
+            <div class="notif-head"><span>Notifications</span><button id="markRead">Mark all read</button></div>
+            <div class="notif-list" id="notifList"></div>
+          </div>
+        </div>
+        <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode">
+          <svg class="ico"><use href="#i-moon" id="themeIcon"/></svg>
+        </button>
+        <button class="topbar-avatar" id="topAvatar" aria-label="Your profile">AS</button>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- ================= DASHBOARD VIEW ================= -->
+      <section class="view is-active" id="view-dashboard" aria-label="Dashboard">
+        <div class="grid">
+
+          <div class="col">
+
+            <!-- Welcome -->
+            <section class="card welcome card-welcome">
+              <div class="welcome-top">
+                <div class="welcome-copy">
+                  <h1>Good morning, Aigerim! <span class="wave">👋</span></h1>
+                  <p>Let's find the best universities for your future.</p>
+                </div>
+
+                <svg class="welcome-art" viewBox="0 0 234 152" fill="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="gGlobe" x1=".2" y1="0" x2=".9" y2="1">
+                      <stop offset="0" stop-color="#E4EAFF"/><stop offset="1" stop-color="#BFCCFB"/>
+                    </linearGradient>
+                    <linearGradient id="gBlue" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stop-color="#5B7CFA"/><stop offset="1" stop-color="#7C6BF0"/>
+                    </linearGradient>
+                    <filter id="fSoft" x="-30%" y="-30%" width="160%" height="160%">
+                      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#5566AA" flood-opacity=".16"/>
+                    </filter>
+                  </defs>
+
+                  <ellipse cx="118" cy="132" rx="70" ry="9" fill="#5B7CFA" opacity=".08"/>
+
+                  <!-- globe -->
+                  <circle cx="112" cy="80" r="46" fill="url(#gGlobe)"/>
+                  <path d="M112 34c-11 12-16 28-16 46s5 34 16 46c11-12 16-28 16-46s-5-34-16-46z" fill="#fff" opacity=".55"/>
+                  <ellipse cx="112" cy="80" rx="46" ry="19" stroke="#98AEF6" stroke-width="1.3" fill="none" opacity=".85"/>
+                  <ellipse cx="112" cy="80" rx="46" ry="35" stroke="#98AEF6" stroke-width="1.1" fill="none" opacity=".55"/>
+                  <path d="M112 34v92M66 80h92" stroke="#98AEF6" stroke-width="1.3" opacity=".7"/>
+                  <path d="M88 56c7-3 14-1 16 4s-3 10-9 11-9 5-6 9 10 3 12 7" stroke="#6C87E8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".75"/>
+                  <path d="M126 62c6 1 11 5 12 10s-2 9-6 10" stroke="#6C87E8" stroke-width="2.4" stroke-linecap="round" fill="none" opacity=".6"/>
+
+                  <!-- floating card, top right -->
+                  <g filter="url(#fSoft)">
+                    <rect x="150" y="24" width="72" height="50" rx="9" fill="#fff"/>
+                  </g>
+                  <rect x="158" y="34" width="30" height="5" rx="2.5" fill="#DFE5F8"/>
+                  <rect x="158" y="45" width="46" height="4" rx="2" fill="#EDF1FB"/>
+                  <rect x="158" y="54" width="36" height="4" rx="2" fill="#EDF1FB"/>
+                  <rect x="196" y="30" width="16" height="16" rx="5" fill="#DCE6FF"/>
+                  <path d="m200 38 2.6 2.6 5-5" stroke="#5B7CFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+                  <!-- chips -->
+                  <rect x="150" y="6" width="17" height="14" rx="4.5" fill="#2DD4BF"/>
+                  <rect x="172" y="6" width="26" height="14" rx="4.5" fill="#FBAF3E"/>
+
+                  <!-- small stat card, right -->
+                  <g filter="url(#fSoft)">
+                    <rect x="176" y="84" width="46" height="34" rx="8" fill="#fff"/>
+                  </g>
+                  <rect x="183" y="92" width="12" height="18" rx="3" fill="#DCE6FF"/>
+                  <rect x="199" y="98" width="12" height="12" rx="3" fill="url(#gBlue)"/>
+
+                  <!-- left mini card -->
+                  <g filter="url(#fSoft)">
+                    <rect x="20" y="52" width="52" height="36" rx="8" fill="#fff"/>
+                  </g>
+                  <circle cx="34" cy="66" r="6" fill="url(#gBlue)"/>
+                  <rect x="44" y="62" width="20" height="4" rx="2" fill="#E4E9F7"/>
+                  <rect x="28" y="76" width="36" height="4" rx="2" fill="#EDF1FB"/>
+
+                  <!-- sparkles -->
+                  <path d="M42 24v10M37 29h10" stroke="#A9B9F5" stroke-width="2.4" stroke-linecap="round"/>
+                  <path d="M228 62v7M224.5 65.5h7" stroke="#FBAF3E" stroke-width="2.2" stroke-linecap="round"/>
+                  <circle cx="60" cy="112" r="3.4" fill="#8B5CF6" opacity=".45"/>
+                  <circle cx="146" cy="122" r="4.4" fill="#2DD4BF" opacity=".35"/>
+                </svg>
+              </div>
+
+              <div class="stats">
+                <div class="stat">
+                  <div class="stat-ic stat-ic--blue"><svg class="ico"><use href="#i-bank"/></svg></div>
+                  <div>
+                    <div class="stat-label">Universities explored</div>
+                    <div class="stat-value" data-count="12">0</div>
+                  </div>
+                </div>
+                <div class="stat">
+                  <div class="stat-ic stat-ic--green"><svg class="ico"><use href="#i-bookmark"/></svg></div>
+                  <div>
+                    <div class="stat-label">Saved universities</div>
+                    <div class="stat-value" id="statSaved" data-count="5">0</div>
+                  </div>
+                </div>
+                <div class="stat">
+                  <div class="stat-ic stat-ic--purple"><svg class="ico"><use href="#i-compare"/></svg></div>
+                  <div>
+                    <div class="stat-label">Comparisons made</div>
+                    <div class="stat-value" id="statCompare" data-count="3">0</div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Eligibility overview -->
+            <section class="card card-elig">
+              <div class="card-head">
+                <div>
+                  <h2 class="card-title">Your Eligibility Overview</h2>
+                  <p class="card-sub">Based on your profile and recent checks</p>
+                </div>
+              </div>
+
+              <div class="elig-body">
+                <div class="donut-wrap">
+                  <div class="donut" id="donut" role="img" aria-label="8 eligibility checks: 5 meet requirements, 2 partially meet, 1 does not meet">
+                    <svg viewBox="0 0 152 152">
+                      <circle cx="76" cy="76" r="60" stroke="var(--track)" stroke-width="18"/>
+                      <circle class="seg" cx="76" cy="76" r="60" stroke="#22C55E" stroke-width="18" data-seg="5"/>
+                      <circle class="seg" cx="76" cy="76" r="60" stroke="#F59E0B" stroke-width="18" data-seg="2"/>
+                      <circle class="seg" cx="76" cy="76" r="60" stroke="#F0446E" stroke-width="18" data-seg="1"/>
+                    </svg>
+                    <div class="donut-center">
+                      <b data-count="8">0</b>
+                      <span>Total Checks</span>
+                    </div>
+                  </div>
+
+                  <div class="legend">
+                    <button class="legend-row" data-filter="meets">
+                      <i style="background:#22C55E"></i><span>Meets Requirements</span><b>5</b>
+                    </button>
+                    <button class="legend-row" data-filter="partial">
+                      <i style="background:#F59E0B"></i><span>Partially Meets</span><b>2</b>
+                    </button>
+                    <button class="legend-row" data-filter="fails">
+                      <i style="background:#F0446E"></i><span>Does Not Meet</span><b>1</b>
+                    </button>
+                    <button class="btn btn--ghost" data-nav="comparisons">View All Checks <svg class="ico"><use href="#i-arrow-right"/></svg></button>
+                  </div>
+                </div>
+
+                <div class="strength">
+                  <h3>Profile Strength</h3>
+                  <div class="strength-num"><span id="strengthNum">0</span>%</div>
+                  <div class="bar"><i id="strengthBar"></i></div>
+                  <p class="strength-note" id="strengthNote">Great job! Your profile is strong.</p>
+                  <button class="btn btn--ghost" data-nav="profile">Improve Profile</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Popular universities -->
+            <section class="card card-popular">
+              <div class="card-head">
+                <div>
+                  <h2 class="card-title">Popular Universities</h2>
+                  <p class="card-sub">Explore top universities worldwide</p>
+                </div>
+                <button class="link-more" data-nav="universities">View All <svg class="ico"><use href="#i-arrow-right"/></svg></button>
+              </div>
+              <div class="uni-scroller" id="uniScroller"></div>
+              <div class="dots" id="uniDots"></div>
+            </section>
+          </div>
+
+          <div class="col">
+            <!-- Check eligibility -->
+            <section class="card card-check">
+              <div class="card-head" style="margin-bottom:16px">
+                <div>
+                  <h2 class="card-title">Check Eligibility</h2>
+                  <p class="card-sub">Find out if you meet the requirements</p>
+                </div>
+              </div>
+
+              <form id="eligForm" novalidate>
+                <div class="field">
+                  <label for="fCountry">Select Country of Education</label>
+                  <select class="control" id="fCountry">
+                    <option value="kz" selected>🇰🇿&nbsp; Kazakhstan</option>
+                    <option value="uz">🇺🇿&nbsp; Uzbekistan</option>
+                    <option value="kg">🇰🇬&nbsp; Kyrgyzstan</option>
+                    <option value="ru">🇷🇺&nbsp; Russia</option>
+                    <option value="tr">🇹🇷&nbsp; Türkiye</option>
+                    <option value="ae">🇦🇪&nbsp; United Arab Emirates</option>
+                    <option value="gb">🇬🇧&nbsp; United Kingdom</option>
+                  </select>
+                  <svg class="ico field-ic"><use href="#i-chevron-down"/></svg>
+                </div>
+
+                <div class="field">
+                  <label for="fCurriculum">Select Your Curriculum</label>
+                  <select class="control" id="fCurriculum"></select>
+                  <svg class="ico field-ic"><use href="#i-chevron-down"/></svg>
+                </div>
+
+                <div class="field" id="comboField">
+                  <label for="fUni">Select University</label>
+                  <input class="control" id="fUni" type="text" autocomplete="off" role="combobox"
+                         aria-expanded="false" aria-controls="comboList" placeholder="Search university...">
+                  <svg class="ico field-ic"><use href="#i-search"/></svg>
+                  <div class="combo-list" id="comboList" role="listbox"></div>
+                </div>
+
+                <button class="btn btn--primary btn--block btn--lg" type="submit" style="margin-top:6px">
+                  Check My Eligibility <svg class="ico"><use href="#i-arrow-right"/></svg>
+                </button>
+              </form>
+
+              <div class="check-result" id="inlineResult"></div>
+            </section>
+
+            <!-- Recent checks -->
+            <section class="card card-recent">
+              <div class="card-head" style="margin-bottom:12px">
+                <h2 class="card-title">Recent Checks</h2>
+                <button class="link-more" data-nav="comparisons">View All <svg class="ico"><use href="#i-arrow-right"/></svg></button>
+              </div>
+              <div class="check-list" id="recentList"></div>
+              <div class="card-foot">
+                <button class="link-more" data-nav="comparisons">Open History <svg class="ico"><use href="#i-arrow-right"/></svg></button>
+              </div>
+            </section>
+          </div>
+
+          <!-- Bottom full-width row -->
+          <div class="row-full">
+            <section class="card">
+              <div class="card-head">
+                <div>
+                  <h2 class="card-title">Application Roadmap</h2>
+                  <p class="card-sub">Your personalized application steps</p>
+                </div>
+                <button class="link-more" data-nav="roadmap">View All <svg class="ico"><use href="#i-arrow-right"/></svg></button>
+              </div>
+              <div class="steps" id="roadmapList"></div>
+              <div class="doc-progress">
+                <div class="bar"><i id="roadBar"></i></div>
+                <b id="roadPct">0%</b>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card-head">
+                <div>
+                  <h2 class="card-title">Document Checklist</h2>
+                  <p class="card-sub">Track your application documents</p>
+                </div>
+                <button class="link-more" data-nav="documents">View All <svg class="ico"><use href="#i-arrow-right"/></svg></button>
+              </div>
+              <div class="doc-list" id="docList"></div>
+              <div class="doc-progress">
+                <div class="bar"><i id="docBar"></i></div>
+                <b id="docPct">0%</b>
+              </div>
+            </section>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= SECONDARY VIEWS ================= -->
+      <section class="view" id="view-page" aria-live="polite"></section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ============ MODAL + TOASTS ============ -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" id="modal" tabindex="-1"><div class="modal-inner" id="modalBody"></div></div>
+</div>
+<div class="toast-wrap" id="toasts" aria-live="polite"></div>
+
+<script src="universities-data.js"></script>
+<script src="programs-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
